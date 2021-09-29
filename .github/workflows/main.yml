@@ -19,5 +19,5 @@ jobs:
 
       - name: Comment and label
         run: |
-          gh pr --add-project "test this"
+          gh pr edit ${{github.event.pull_request.number}} --add-project "test this"
 

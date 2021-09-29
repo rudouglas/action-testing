@@ -50,5 +50,5 @@ jobs:
       - name: Move to Project Board
         run: |
           echo "This job runs only when all the modified files are under the 'quickstarts' folder."
-          gh pr edit ${{github.event.pull_request.number}} --add-project "NR1 Quickstarts Community"
+          gh pr edit ${{github.event.pull_request.number}} --add-project "test this"
 

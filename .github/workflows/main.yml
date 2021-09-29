@@ -14,8 +14,10 @@ jobs:
     if: "!contains( github.event.pull_request.labels.*.name, 'eng')"
     runs-on: ubuntu-latest
     steps:
-      - uses: alex-page/github-project-automation-plus@v0.8.1
-        with:
-          project: NR1 Quickstarts Community
-          column: To do
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Comment and label
+        run: |
+          gh pr --add-project "test this"
+

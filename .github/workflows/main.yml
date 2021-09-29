@@ -5,7 +5,8 @@ on:
     branches:
       - main
     types: [opened]
-
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   check_files:
     name: Check files

@@ -23,10 +23,10 @@ jobs:
         id: check_files
         run: |
           echo "=============== list modified files ==============="
-          git diff --name-only origin/main HEAD
+          git diff origin/main HEAD
           
           echo "========== check paths of modified files =========="
-          git diff --name-only origin/main HEAD > files.txt
+          git diff origin/main HEAD > files.txt
           while IFS= read -r file
           do
             echo $file

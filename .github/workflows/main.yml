@@ -11,7 +11,7 @@ jobs:
   check_files:
     name: Check files
     outputs:
-      run_job: ${{ steps.check_files.outputs.run_job }}
+      run_job: ${{ steps.check_files.outputs.move_to_project }}
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -33,18 +33,18 @@ jobs:
           do
             echo $file
             if [[ $file != quickstarts/* ]]; then
-              echo "This modified file is not under the 'db' folder."
-              echo "::set-output name=run_job::false"
+              echo "This modified file is not under the 'quickstarts' folder."
+              echo "::set-output name=move_to_project::false"
               break
             else
-              echo "::set-output name=run_job::true"
+              echo "::set-output name=move_to_project::true"
             fi
           done < files.txt
 
-  job_for_db:
-    name: Job for 'db' folder
+  move-to-project:
+    name: Move PR to Project
     needs: check_files
-    if: needs.check_files.outputs.run_job == 'true'
+    if: needs.check_files.outputs.move_to_project == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -54,4 +54,5 @@ jobs:
         run: |
           echo "This job runs only when all the modified files are under the 'quickstarts' folder."
           gh pr edit ${{github.event.pull_request.number}} --add-project "test this"
+
 

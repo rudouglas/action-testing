@@ -23,6 +23,7 @@ jobs:
         id: check_files
         run: |
           echo "=============== list modified files ==============="
+          git fetch origin main
           git diff origin/main HEAD
           
           echo "========== check paths of modified files =========="

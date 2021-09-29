@@ -12,6 +12,7 @@ jobs:
     outputs:
       run_job: ${{ steps.check_files.outputs.run_job }}
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,11 +24,10 @@ jobs:
         id: check_files
         run: |
           echo "=============== list modified files ==============="
-          git fetch origin main
-          git diff origin/main HEAD
+          git diff --name-only HEAD^ HEAD
           
           echo "========== check paths of modified files =========="
-          git diff origin/main HEAD > files.txt
+          git diff --name-only HEAD^ HEAD > files.txt
           while IFS= read -r file
           do
             echo $file
